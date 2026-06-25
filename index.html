@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Wire — NZ Electrician Exam Prep</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/livewire-favicon-200x200.svg">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    :root {
+      --bg: #111111; --surface: #1c1c1c; --border: #2e2e2e;
+      --text: #f0f0f0; --muted: #888888;
+      --card-hover: #252525; --card-border: #3a3a3a;
+    }
+    [data-theme="light"] {
+      --bg: #f5f5f5; --surface: #ffffff; --border: #e0e0e0;
+      --text: #111111; --muted: #666666;
+      --card-hover: #f0f0f0; --card-border: #d4d4d4;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      background: #000; padding: 0 2.5rem; height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .nav-brand svg { height: 60px; width: auto; cursor: pointer; }
+    .theme-toggle {
+      background: none; border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 7px; color: rgba(255,255,255,0.7);
+      font-size: 0.8rem; font-weight: 600; padding: 5px 11px;
+      cursor: pointer; font-family: inherit; transition: all 0.1s;
+    }
+    .theme-toggle:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+    /* HERO */
+    .hero {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 4rem 2rem 3rem; text-align: center;
+    }
+    .hero-logo { margin-bottom: 2rem; }
+    .hero-eyebrow {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: 2.6rem; font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.03em; margin-bottom: 1rem; color: var(--text);
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted); max-width: 520px;
+      line-height: 1.65; margin-bottom: 3.5rem;
+    }
+    .yellow { color: #F5C400; }
+
+    /* SECTION CARDS */
+    .sections {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; max-width: 860px; width: 100%;
+    }
+    .section-card {
+      background: var(--surface); border: 1.5px solid var(--card-border);
+      border-radius: 16px; padding: 2.25rem 2rem;
+      cursor: pointer; text-align: left;
+      transition: all 0.15s; position: relative; overflow: hidden;
+    }
+    .section-card:hover { background: var(--card-hover); border-color: var(--text); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .section-card.coming-soon { cursor: default; opacity: 0.55; }
+    .section-card.coming-soon:hover { transform: none; box-shadow: none; border-color: var(--card-border); background: var(--surface); }
+    .card-badge {
+      display: inline-block; font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 3px 8px; border-radius: 4px; margin-bottom: 1.25rem;
+    }
+    .badge-live { background: #F5C400; color: #111; }
+    .badge-soon { background: var(--border); color: var(--muted); }
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+    .card-title {
+      font-size: 1.25rem; font-weight: 800; color: var(--text);
+      margin-bottom: 0.5rem; line-height: 1.25;
+    }
+    .card-desc {
+      font-size: 0.875rem; color: var(--muted); line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .card-topics { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.75rem; }
+    .topic-pill {
+      font-size: 0.7rem; font-weight: 600; padding: 3px 9px;
+      border-radius: 20px; background: var(--border); color: var(--muted);
+    }
+    .card-cta {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.85rem; font-weight: 700; color: var(--text);
+    }
+    .section-card.coming-soon .card-cta { color: var(--muted); }
+    .cta-arrow { transition: transform 0.15s; }
+    .section-card:hover .cta-arrow { transform: translateX(4px); }
+
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 2rem;
+      font-size: 0.78rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .sections { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2rem; }
+      nav { padding: 0 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <svg viewBox="0 0 680 170" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="36,36 58,80 44,80 66,124 22,86 40,86" fill="#F5C400"/>
+      <text x="80" y="82" font-family="Georgia, serif" font-size="46" font-weight="700" fill="#ffffff" letter-spacing="-1">LIVE WIRE</text>
+      <text x="82" y="106" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="rgba(255,255,255,0.5)" letter-spacing="5">ELECTRICAL LEARNING</text>
+      <line x1="80" y1="120" x2="430" y2="120" stroke="#F5C400" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">☀ Light</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-logo">
+    <svg viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg" style="width:220px;height:220px;">
+      <text x="340" y="220" text-anchor="middle" font-family="Georgia, serif" font-size="92" font-weight="700" fill="currentColor" letter-spacing="-2">LIVE WIRE</text>
+      <text x="340" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="currentColor" opacity="0.45" letter-spacing="9">ELECTRICAL</text>
+      <line x1="160" y1="315" x2="520" y2="315" stroke="#F5C400" stroke-width="2"/>
+      <polygon points="322,355 360,428 338,428 376,518 298,452 322,452" fill="#F5C400"/>
+      <text x="340" y="578" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="currentColor" opacity="0.45" letter-spacing="9">LEARNING</text>
+    </svg>
+  </div>
+
+  <p class="hero-eyebrow">New Zealand Electricians</p>
+  <h1 class="hero-title">Practice for your <span class="yellow">EWRB</span> exam here.</h1>
+  <p class="hero-sub">Practice questions, timed exams, and topic-by-topic revision — built specifically for the New Zealand electrical worker registration exam.</p>
+
+  <div class="sections">
+
+    <!-- REGULATIONS PREP -->
+    <div class="section-card" onclick="window.location.href=window.location.protocol==='file:'?'ER-2018.html':'/2018'">
+      <span class="card-badge badge-live">Available now</span>
+      <span class="card-icon">📋</span>
+      <div class="card-title">EWRB Regulations Prep</div>
+      <p class="card-desc">Multiple-choice practice using official EWRB exam papers. Covers ESR 2010 and AS/NZS 3000:2007 with instant feedback, exam mode, and a full question navigator.</p>
+      <div class="card-topics">
+        <span class="topic-pill">ESR 2010</span>
+        <span class="topic-pill">AS/NZS 3000:2007</span>
+        <span class="topic-pill">Maximum Demand</span>
+        <span class="topic-pill">Volt Drop</span>
+        <span class="topic-pill">Weak Spots</span>
+      </div>
+      <div class="card-cta">Start practising <span class="cta-arrow">→</span></div>
+    </div>
+
+    <!-- THEORY PREP -->
+    <div class="section-card coming-soon">
+      <span class="card-badge badge-soon">Coming soon</span>
+      <span class="card-icon">⚡</span>
+      <div class="card-title">EWRB Theory Exam Prep</div>
+      <p class="card-desc">Electrical theory revision covering the fundamentals — circuits, protection, transformers, motors, and more. Aligned with the EWRB Electrician's Theory exam.</p>
+      <div class="card-topics">
+        <span class="topic-pill">AC/DC Theory</span>
+        <span class="topic-pill">Protection</span>
+        <span class="topic-pill">Transformers</span>
+        <span class="topic-pill">Motors</span>
+        <span class="topic-pill">Calculations</span>
+      </div>
+      <div class="card-cta">Coming soon</div>
+    </div>
+
+  </div>
+</div>
+
+<footer>© 2025 Live Wire Electrical Learning · Built for New Zealand electricians</footer>
+
+<script>
+function toggleTheme(){
+  const isLight = document.documentElement.getAttribute('data-theme')==='light';
+  document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+  document.getElementById('theme-toggle').textContent = isLight ? '☀ Light' : '☾ Dark';
+  localStorage.setItem('lwTheme', isLight ? 'dark' : 'light');
+}
+(function initTheme(){
+  const saved = localStorage.getItem('lwTheme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('theme-toggle').textContent = saved==='light' ? '☾ Dark' : '☀ Light';
+  });
+})();
+</script>
+</body>
+</html>
